@@ -12,8 +12,9 @@ public class LeetCode_46 {
     boolean[] flag = null;
 
     public List<List<Integer>> permute(int[] nums) {
-        if (nums.length == 0)
+        if (nums.length == 0) {
             return result;
+        }
         flag = new boolean[nums.length];
         generatePermute(nums, 0, new ArrayList<>());
         return result;
@@ -26,7 +27,7 @@ public class LeetCode_46 {
         }
 
         for (int i = 0; i < nums.length; i++) {
-            //判断当前的数是否在p中，不再才能使用，因为不能循环使用  也就是说当第i个元素没有在p中才进行
+            //判断当前的数是否在p中，不在才能使用，因为不能循环使用  也就是说当第i个元素没有在p中才进行
             if (!flag[i]) {
                 p.add(nums[i]);
                 flag[i] = true;

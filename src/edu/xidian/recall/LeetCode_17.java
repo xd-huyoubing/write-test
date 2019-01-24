@@ -13,8 +13,9 @@ public class LeetCode_17 {
     List<String> result = new ArrayList<>();
 
     public List<String> letterCombinations(String digits) {
-        if (digits.length() == 0)
+        if (digits.length() == 0) {
             return result;
+        }
         findCombinations(digits, 0, "");
         return result;
     }
@@ -35,16 +36,26 @@ public class LeetCode_17 {
 
     private String getLetters(int index) {
         String[] str = {
-                " ",    //0
-                "",     //1
-                "abc",  //2
-                "def",  //3
-                "ghi",  //4
-                "jkl",  //5
-                "mno",  //6
-                "pqrs", //7
-                "tuv",  //8
-                "wxyz"  //9
+                //0
+                " ",
+                //1
+                "",
+                //2
+                "abc",
+                //3
+                "def",
+                //4
+                "ghi",
+                //5
+                "jkl",
+                //6
+                "mno",
+                //7
+                "pqrs",
+                //8
+                "tuv",
+                //9
+                "wxyz"
         };
         return str[index];
     }

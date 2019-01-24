@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * 明确每一个变量的含义  是写出一个不出错误的程序的前提
- *
+ * @author huyoubing
  * @param <E>
  */
 
@@ -12,9 +12,11 @@ public class BinarySearch<E extends Comparable<E>> {
 
     //在 闭区间[l..r]上搜索
     public int binarySearchNR(E[] arr, E target) {
-        int l = 0, r = arr.length - 1; //在区间[l...r]上搜索目标target
+        //在区间[l...r]上搜索目标target
+        int l = 0, r = arr.length - 1;
 
-        while (l <= r) { //当l == r 时，这个区间还是有效的  还有一个元素存在
+        //当l == r 时，这个区间还是有效的  还有一个元素存在
+        while (l <= r) {
             int mid = l + (r - l) / 2;
 
             if (arr[mid] == target)
@@ -22,34 +24,31 @@ public class BinarySearch<E extends Comparable<E>> {
 
             if (arr[mid].compareTo(target) > 0) {
                 r = mid - 1;
-            } else
+            } else {
                 l = mid + 1;
+            }
         }
         return -1;
     }
 
     //递归实现二分搜索
     public int binarySearch(E[] arr, E target, int l, int r) {
-        if (l > r)
+        if (l > r) {
             return -1;
+        }
         int mid = l + (r - l) / 2;
-        if (arr[mid] == target)
+        if (arr[mid] == target) {
             return mid;
-        else if (arr[mid].compareTo(target) > 0)
+        } else if (arr[mid].compareTo(target) > 0) {
             return binarySearch(arr, target, l, mid - 1);
-        else
+        } else {
             return binarySearch(arr, target, mid + 1, r);
+        }
     }
 
 
     public static void main(String[] args) {
         int n = 10;
-       /* Integer[] arr = new Integer[n];
-        Random random = new Random();
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = random.nextInt(100);
-        }*/
         Integer[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
         Arrays.sort(arr);

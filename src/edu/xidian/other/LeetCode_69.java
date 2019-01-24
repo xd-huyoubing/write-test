@@ -11,12 +11,15 @@ public class LeetCode_69 {
         while (i <= j) {
             mid = i + (j - i) / 2;
             int temp = mid * mid;
-            if (temp == x)
+            if (temp == x) {
                 return mid;
-            if (temp < x)
+            }
+            if (temp < x) {
                 i = mid + 1;
-            else
+            }
+            else {
                 j = mid - 1;
+            }
         }
         return j;
     }

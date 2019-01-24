@@ -8,6 +8,8 @@ package edu.xidian.arrry;
  * 说明:
  * 必须在原数组上操作，不能拷贝额外的数组。
  * 尽量减少操作次数。
+ *
+ * @author 有兵
  */
 public class LeetCode283_Move_Zeroes {
 
@@ -52,8 +54,9 @@ public class LeetCode283_Move_Zeroes {
 
         int index = 0;
         for (int k = 0; k < nums.length; k++) {
-            if (nums[k] != 0)
+            if (nums[k] != 0) {
                 swap(nums, index++, k);
+            }
         }
     }
 

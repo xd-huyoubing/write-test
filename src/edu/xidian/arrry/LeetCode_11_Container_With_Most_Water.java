@@ -1,5 +1,8 @@
 package edu.xidian.arrry;
 
+/**
+ * @author 有兵
+ */
 public class LeetCode_11_Container_With_Most_Water {
     public int maxArea(int[] height) {
         int left = 0;
