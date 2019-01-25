@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @auther huyoubing
+ * @auther youbing
  * @date 2018/11/12 20:33
  * <p>
  * 给定一个二叉树，它的每个结点都存放一个 0-9 的数字，每条从根到叶子节点的路径都代表一个数字。
@@ -16,43 +16,25 @@ import java.util.List;
  * 说明: 叶子节点是指没有子节点的节点。
  */
 public class LeetCode_129 {
-    private List<String> list = new ArrayList<>();
 
     public int sumNumbers(TreeNode root) {
-        List<String> list = sumPath(root,new StringBuilder());
-
-        int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            sum += Integer.parseInt(list.get(i));
-        }
-        return sum;
+        return sumPath(root,0);
     }
 
-    private List<String> sumPath(TreeNode root,StringBuilder builder) {
+
+    private int sumPath(TreeNode root, int sum) {
         if (root == null) {
-            return null;
+            return 0;
         }
-        builder.append(root.val);
+        sum = sum * 10 + root.val;
         if (root.left == null && root.right == null) {
-            list.add(new String(builder));
-            builder.delete(0,builder.length()-1);
+            return sum;
         }
-
-        List<String> leftSum = sumPath(root.left,builder);
-        for (int i = 0; i < leftSum.size(); i++) {
-            builder.append(root.val + leftSum.get(i));
-        }
-        List<String> rightSum = sumPath(root.right,builder);
-
-        for (int i = 0; i < rightSum.size(); i++) {
-            builder.append(root.val + rightSum.get(i));
-        }
-
-        return list;
+        return sumPath(root.left, sum) + sumPath(root.right, sum);
     }
 
     public static void main(String[] args) {
-        Integer[] nums = {1,2,3};
+        Integer[] nums = {1, 2, 3};
         TreeNode root = CreateTree.constructTree(nums);
         LeetCode_129 leetCode_129 = new LeetCode_129();
         int i = leetCode_129.sumNumbers(root);
