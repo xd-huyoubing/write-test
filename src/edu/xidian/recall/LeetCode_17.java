@@ -1,6 +1,7 @@
 package edu.xidian.recall;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,62 +9,56 @@ import java.util.List;
  * @date 2018/11/12 21:18
  * <p>
  * 递归与回溯法
+ * <p>
+ * 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+ * <p>
+ * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
  */
 public class LeetCode_17 {
-    List<String> result = new ArrayList<>();
+    private static String[] digitsMap = {
+            " ", //0
+            "", //1
+            "abc",//2
+            "def",//3
+            "ghi",//4
+            "jkl",//5
+            "mno",//6
+            "pqrs",//7
+            "tuv",//8
+            "wxyz",//9
+    };
+    private static List<String> res = new LinkedList<>();
+
+    private void findDigits(String digits, int index, String str) {
+        if (index == digits.length()) {
+            res.add(new String(str));
+            return;
+        }
+        //获取到这个数字 并获取这个数字对应的字符串
+        char c = digits.charAt(index);
+        String tempStr = digitsMap[c - '0'];
+
+        //将每一个数字遍历
+        for (int i = 0; i < tempStr.length(); i++) {
+            findDigits(digits, index + 1, str + tempStr.charAt(i));
+        }
+        return;
+    }
 
     public List<String> letterCombinations(String digits) {
         if (digits.length() == 0) {
-            return result;
+            return res;
         }
-        findCombinations(digits, 0, "");
-        return result;
-    }
-
-    private void findCombinations(String digits, int index, String s) {
-
-        //递归结束的条件，输入的字符串处理完了，此时保存找到的一个字符串
-        if (index == digits.length()) {
-            result.add(s);
-            return;
-        }
-        //获取每一个数字对应的字符串
-        String letters = getLetters(digits.charAt(index) - '0');
-        for (int i = 0; i < letters.length(); i++) {
-            findCombinations(digits, index + 1, s + letters.charAt(i));
-        }
-    }
-
-    private String getLetters(int index) {
-        String[] str = {
-                //0
-                " ",
-                //1
-                "",
-                //2
-                "abc",
-                //3
-                "def",
-                //4
-                "ghi",
-                //5
-                "jkl",
-                //6
-                "mno",
-                //7
-                "pqrs",
-                //8
-                "tuv",
-                //9
-                "wxyz"
-        };
-        return str[index];
+        findDigits(digits, 0, new String());
+        return res;
     }
 
     public static void main(String[] args) {
         LeetCode_17 leetCode_17 = new LeetCode_17();
-        String digits = "234";
-        List<String> strings = leetCode_17.letterCombinations(digits);
-        System.out.println(strings);
+        leetCode_17.letterCombinations("");
+        System.out.println(res);
+        for (String str : res) {
+            System.out.println(str);
+        }
     }
 }

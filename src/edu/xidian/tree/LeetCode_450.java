@@ -14,34 +14,57 @@ package edu.xidian.tree;
  */
 public class LeetCode_450 {
     public TreeNode deleteNode(TreeNode root, int key) {
-        //找到需要删除的节点
-        TreeNode deleteNode = findNode(root, key);
-        if (deleteNode != null) {
-            //如果要删除的节点是叶子节点直接删除
-            if (deleteNode.left == null && deleteNode.right == null) {
-
-
-                //要删除的节点左子树或者右子树有一个为null
-            } else if (deleteNode.left == null || deleteNode.right == null) {
-
-                //都不为null
-            } else {
-
-            }
-        }
-
-        return root;
-    }
-
-    private TreeNode findNode(TreeNode node, int key) {
-        if (node == null) {
+        if (root == null) {
             return null;
         }
-        if (node.val == key) {
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+            return root;
+        } else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+            return root;
+        } else {
+            if (root.left == null ) {
+                TreeNode rightNode = root.right;
+                root.right = null;
+                return rightNode;
+            }
+            if (root.right == null) {
+                TreeNode leftNode = root.left;
+                root.left = null;
+                return leftNode;
+            }
+            TreeNode successor = getMinNode(root.right);
+            successor.right = removeMin(root.right);
+            successor.left = root.left;
+            root.left = root.right = null;
+            return successor;
+        }
+    }
+
+    /**
+     * 删除最小值
+     *
+     * @param node
+     * @return
+     */
+    private TreeNode removeMin(TreeNode node) {
+
+        if (node.left == null) {
+            TreeNode rightNode = node.right;
+            node.right = null;
+            return rightNode;
+        }
+        node.left =  removeMin(node.left);
+        return node;
+    }
+
+    private TreeNode getMinNode(TreeNode node) {
+
+        if (node.left == null) {
             return node;
         }
-        findNode(node.left, key);
-        findNode(node.right, key);
-        return null;
+        return getMinNode(node.left);
     }
+
 }
