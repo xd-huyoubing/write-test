@@ -19,8 +19,9 @@ public class BinarySearch<E extends Comparable<E>> {
         while (l <= r) {
             int mid = l + (r - l) / 2;
 
-            if (arr[mid] == target)
+            if (arr[mid] == target) {
                 return mid;
+            }
 
             if (arr[mid].compareTo(target) > 0) {
                 r = mid - 1;
